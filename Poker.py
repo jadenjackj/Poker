@@ -1,4 +1,3 @@
-
 import random 
 
 stack = int(input("How much are you buying in for?: "))
@@ -32,8 +31,6 @@ turn = cards[9]
 river = cards[11]
 board = []
 
-
-high_card = False
 pocket_pair = False
 one_pair = False
 two_pair = False
@@ -46,21 +43,21 @@ straight_flush = False
 royal_flush = False
 
 if player1[0][0] == player1[1][0]:
-pocket_pair = True
+    pocket_pair = True
 
 
 g = 0
 board_count = 0
 while(g < len(board)):
-k = g +1
-board_pair = False
-while(k < len(board)):
-    if board[g][0] == board[k][0]:
-        board_pair = True
-    k += 1
-if board_pair:
-    board_count +=1
-g += 1
+    k = g +1
+    board_pair = False
+    while(k < len(board)):
+        if board[g][0] == board[k][0]:
+            board_pair = True
+        k += 1
+    if board_pair:
+        board_count +=1
+    g += 1
 
 
 p = 0
@@ -69,156 +66,56 @@ match2 = 0
 
 # this while loop is checking for matches in the players hand and in the board
 while(p < len(board)):
-if player1[0][0] in board[p]:
-    match += 1
-elif player1[1][0] in board[p]:
-    match2 += 1
-p += 1
-
-# high card 
-if match == 0 or match2 == 0:
-high_card = True 
+    if player1[0][0] in board[p]:
+        match += 1
+    elif player1[1][0] in board[p]:
+        match2 += 1
+    p += 1
 
 
 # checking for quads
 if pocket_pair and match == 2:
-quads = True
+    quads = True
 elif match ==3 or match2 == 3:
-quads = True
+    quads = True
 else:
-quads = quads
+    quads = quads
 
 
 
 # checking for full house
 if pocket_pair and match == 1 and board_count == 2:
-fullhouse = True
+    fullhouse = True
 elif match == 2 and board_count ==2 or match2 == 2 and board_count == 2:
-fullhouse = True
+    fullhouse = True
 elif board_count == 3:
-fullhouse = True
+    fullhouse = True
 else:
-fullhouse = False
+    fullhouse = False
 
 # note: checking for one pair
 if match == 1 or match2 == 1:
-one_pair = True
+    one_pair = True
 elif pocket_pair:
-one_pair = True
+    one_pair = True
 
 # note: checking for two pair
 if board_count == 2 and match == 1:
-one_pair = False
-two_pair = True
+    one_pair = False
+    two_pair = True
 elif board_count == 2 and match2 == 1:
-one_pair = False
-two_pair = True
+    one_pair = False
+    two_pair = True
 elif match == 1 and match2 == 1:
-one_pair = False
-two_pair = True
+    one_pair = False
+    two_pair = True
 
 # note: checking for trips 
 if match == 2 or match2 == 2:
-trips = True
+    trips = True
 elif pocket_pair and match == 1:
-one_pair = False
-trips = True
-# checking for straight
-low = False
-low1 = False
-low2 = False
-low3 = False
-low4 = False
-
-for a in board:
-if a[0] == 'A': 
-    low = True
-elif a[0] == '2': 
-    low1 = True
-elif a[0] == '3': 
-    low2 = True
-elif a[0] == '4': 
-    low3 = True
-elif a[0] == '5': 
-    low4 = True
-
-for s in player1:
-if s[0] == 'A': 
-    low = True
-elif s[0] == '2': 
-    low1 = True
-elif s[0] == '3': 
-    low2 = True
-elif s[0] == '4': 
-    low3 = True
-elif s[0] == '5': 
-    low4 = True
-
-straight_list = []
-
-for v in board:
-straight_list.append(v[0])
-if v[0] == 'T':
-    straight_list.append('10')
-elif v[0] == 'J':
-    straight_list.append('11')
-elif v[0] == 'Q':
-    straight_list.append('12')
-elif v[0] == 'K':
-    straight_list.append('13')
-elif v[0] == 'A':
-    straight_list.append('14')
-
-for b in player1:
-straight_list.append(b[0])
-if b[0] == 'T':
-    straight_list.append('10')
-elif b[0] == 'J':
-    straight_list.append('11')
-elif b[0] == 'Q':
-    straight_list.append('12')
-elif b[0] == 'K':
-    straight_list.append('13')
-elif b[0] == 'A':
-    straight_list.append('14')
-
-if low and low1 and low2 and low3 and low4:
-straight_list.append('1')
-straight_list.remove('14')
-
-for m in straight_list:
-if 'A' in straight_list:
-    straight_list.remove('A')
-elif 'K' in straight_list:
-    straight_list.remove('K')
-elif 'Q' in straight_list:
-    straight_list.remove('Q')
-elif 'J' in straight_list:
-    straight_list.remove('J')
-elif 'T' in straight_list:
-    straight_list.remove('T')
-else:
-    straight_list = straight_list
-
-straight_set = [*set(straight_list)]
-
-straight_order = sorted(straight_set, key=int)
-
-straight_join = ''.join(straight_order)
-
-straight_numbers = '1234567891011121314'
-
-if straight_join[1:6] in straight_numbers or straight_join[0:5] in straight_numbers or straight_join[2:] in straight_numbers:
-straight = True
-# checking for straight flush
-if straight and flush:
-straight_flush = True
-# checking for royal flush 
-if straight_order[0] == '10' and flush:
-royal_flush = True
-
-
-    
+    one_pair = False
+    trips = True
 
 def start():
     global stack
@@ -490,6 +387,190 @@ def end():
             start()
         else:
             return("Okay have a great day!") 
+
+    high_card = False
+    pocket_pair = False
+    one_pair = False
+    two_pair = False
+    trips = False
+    straight = False
+    flush = False
+    fullhouse = False
+    quads = False
+    straight_flush = False
+    royal_flush = False
+
+    if player1[0][0] == player1[1][0]:
+        pocket_pair = True
+
+
+    g = 0
+    board_count = 0
+    while(g < len(board)):
+        k = g +1
+        board_pair = False
+        while(k < len(board)):
+            if board[g][0] == board[k][0]:
+                board_pair = True
+            k += 1
+        if board_pair:
+            board_count +=1
+        g += 1
+
+
+    p = 0
+    match = 0
+    match2 = 0
+
+    # this while loop is checking for matches in the players hand and in the board
+    while(p < len(board)):
+        if player1[0][0] in board[p]:
+            match += 1
+        elif player1[1][0] in board[p]:
+            match2 += 1
+        p += 1
+    
+    # high card 
+    if match == 0 or match2 == 0:
+        high_card = True 
+
+
+    # checking for quads
+    if pocket_pair and match == 2:
+        quads = True
+    elif match ==3 or match2 == 3:
+        quads = True
+    else:
+        quads = quads
+
+
+
+    # checking for full house
+    if pocket_pair and match == 1 and board_count == 2:
+        fullhouse = True
+    elif match == 2 and board_count ==2 or match2 == 2 and board_count == 2:
+        fullhouse = True
+    elif board_count == 3:
+        fullhouse = True
+    else:
+        fullhouse = False
+
+    # note: checking for one pair
+    if match == 1 or match2 == 1:
+        one_pair = True
+    elif pocket_pair:
+        one_pair = True
+
+    # note: checking for two pair
+    if board_count == 2 and match == 1:
+        one_pair = False
+        two_pair = True
+    elif board_count == 2 and match2 == 1:
+        one_pair = False
+        two_pair = True
+    elif match == 1 and match2 == 1:
+        one_pair = False
+        two_pair = True
+
+    # note: checking for trips 
+    if match == 2 or match2 == 2:
+        trips = True
+    elif pocket_pair and match == 1:
+        one_pair = False
+        trips = True
+    # checking for straight
+    low = False
+    low1 = False
+    low2 = False
+    low3 = False
+    low4 = False
+
+    for a in board:
+        if a[0] == 'A': 
+            low = True
+        elif a[0] == '2': 
+            low1 = True
+        elif a[0] == '3': 
+            low2 = True
+        elif a[0] == '4': 
+            low3 = True
+        elif a[0] == '5': 
+            low4 = True
+
+    for s in player1:
+        if s[0] == 'A': 
+            low = True
+        elif s[0] == '2': 
+            low1 = True
+        elif s[0] == '3': 
+            low2 = True
+        elif s[0] == '4': 
+            low3 = True
+        elif s[0] == '5': 
+            low4 = True
+
+    straight_list = []
+
+    for v in board:
+        straight_list.append(v[0])
+        if v[0] == 'T':
+            straight_list.append('10')
+        elif v[0] == 'J':
+            straight_list.append('11')
+        elif v[0] == 'Q':
+            straight_list.append('12')
+        elif v[0] == 'K':
+            straight_list.append('13')
+        elif v[0] == 'A':
+            straight_list.append('14')
+
+    for b in player1:
+        straight_list.append(b[0])
+        if b[0] == 'T':
+            straight_list.append('10')
+        elif b[0] == 'J':
+            straight_list.append('11')
+        elif b[0] == 'Q':
+            straight_list.append('12')
+        elif b[0] == 'K':
+            straight_list.append('13')
+        elif b[0] == 'A':
+            straight_list.append('14')
+
+    if low and low1 and low2 and low3 and low4:
+        straight_list.append('1')
+        straight_list.remove('14')
+
+    for m in straight_list:
+        if 'A' in straight_list:
+            straight_list.remove('A')
+        elif 'K' in straight_list:
+            straight_list.remove('K')
+        elif 'Q' in straight_list:
+            straight_list.remove('Q')
+        elif 'J' in straight_list:
+            straight_list.remove('J')
+        elif 'T' in straight_list:
+            straight_list.remove('T')
+        else:
+            straight_list = straight_list
+
+    straight_set = [*set(straight_list)]
+
+    straight_order = sorted(straight_set, key=int)
+
+    straight_join = ''.join(straight_order)
+
+    straight_numbers = '1234567891011121314'
+
+    if straight_join[1:6] in straight_numbers or straight_join[0:5] in straight_numbers or straight_join[2:] in straight_numbers:
+        straight = True
+    # checking for straight flush
+    if straight and flush:
+        straight_flush = True
+    # checking for royal flush 
+    if straight_order[0] == '10' and flush:
+        royal_flush = True
 
 
     if royal_flush:
