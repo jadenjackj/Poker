@@ -1,11 +1,19 @@
-[x] Quads
-[] Flush
-[] Straight
-[x] Trips
-[x] Two Pair
-[x] Pair
-[] High Card
+basic strength indicators:
+    [x] Quads
+    [x] Flush
+    [x] Straight
+    [x] Trips
+    [x] Two Pair
+    [x] Pair
+    [x] High Card
+    [x] Royal Flush
+    [x] Straight Flush
+    [x] Full House
+    [] deal with pocket pairs
 
-[] Royal Flush
-[] Straight Flush
-[] Full House
+Main tasks:
+    [] Make a hand evaluator in the Hand class that determines hand strength
+    [] Pre-flop
+    [] flop
+    [] turn
+    [] river
