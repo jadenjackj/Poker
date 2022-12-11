@@ -1,4 +1,6 @@
-import random 
+import random
+import Hand
+from itertools import combinations
 
 stack = int(input("How much are you buying in for?: "))
 
@@ -28,61 +30,27 @@ turn = cards[9]
 river = cards[11]
 board = []
 
-#the status of your hand
-high_card = False
-pocket_pair = False
-one_pair = False
-two_pair = False
-trips = False
-straight = False
-flush = False
-fullhouse = False
-quads = False
-straight_flush = False
-royal_flush = False
 
 #todo: make a function that actually makes the best 5 card hand
+#question: how do we actually determine what are the best 5 cards without running the hand through the program?
+#answer: Why not just run every combination of the hands through the program?
+#note: with 5 cards in the river and 2 cards in hand, we have 21 possible combinations
 
-def high_card(hand):
-    uwu=0
+#question: how are we gonna keep track of the boolean variables for each hand?
+#answer: alright so here's what I'm thinking. We have a hand class and each hand is an instance of that class with the boolean values connected to it
+#todo: make the hands class with the features of a hand like the type of hand and the cards in the hand
 
-def pair(hand):
-    pairs = []
 
-    #checks for all possible pairs in a hand.
-    #If there's trips it'll add the same pair three times. quads will be 6 times
-    for i in range(len(hand)):
-        for f in range(i+1, len(hand)):
-            if(hand[i][0] == hand[f][0]):
-                pairs.append(hand[i][0])
+#so this gets all the possible hand combinations you can get based on what's on the board.
+def hand_combinations(player_hand, board, number):
+    cards_available = player_hand+board
+    possible_hands= list(combinations(cards_available, number))
+    return possible_hands
 
-    return pairs
+def pre_flop(player_hand, board):
+    all_hand_combinations= hand_combinations(player_hand, board, 2) #gets all the possible hand combinations
 
-    #todo: distinct between pair, trips, quads
-
-def two_pair(hand):
-    pairs = pair(hand)
-    if()
-
-def trips(hand):
-    uwu=0
-
-def straight(hand):
-    uwu=0
-
-def flush(hand):
-    uwu=0
-
-def full_house(hand):
-    uwu=0
-
-def quads(hand):
-    uwu=0
-
-def straight_flush(hand):
-    uwu=0
-
-def royal_flush(hand):
-    uwu=0
-
-def pre_flop():
+    #creates a list of hand objects with each object holding its own information such as what is in the hand and that particular hand's strength
+    possible_hands_list= []
+    for i in all_hand_combinations:
+        possible_hands_list.append(Hand(i))

@@ -1,5 +1,11 @@
-[] Evaluate Hands
+[x] Quads
+[] Flush
+[] Straight
+[x] Trips
+[x] Two Pair
+[x] Pair
+[] High Card
 
-[] Evaluate flop
-[] Evaluate turn
-[] Evaluate river
+[] Royal Flush
+[] Straight Flush
+[] Full House
