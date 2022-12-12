@@ -13,6 +13,7 @@ basic strength indicators:
 
 Main tasks:
     [] Make a hand evaluator in the Hand class that determines hand strength
+    [] figure out how we're gonna compare two hands of the same type. i.e. two hands with a pair each. higher pair should win
     [] Pre-flop
     [] flop
     [] turn

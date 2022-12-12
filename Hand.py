@@ -62,6 +62,7 @@ class Hand:
         for i in ranks:
             if(duplicate_list.count(i) == 6):
                 self.quads=True
+                return i
 
 
     def trips(self):
@@ -81,6 +82,7 @@ class Hand:
                 self.one_pair=False #doing this because if we have a two pair then that means we don't simply have just a one pair anymore
             if(duplicate_list.count(i) == 2):
                 self.one_pair=True
+
 
     def straight(self):
         #2 possible converted hands because Ace an be either 1 strength or 14 strength
@@ -103,6 +105,7 @@ class Hand:
         if(low_straight or high_straight):
             self.straight = True
 
+
     def flush(self):
         suit = self.hand[0][1] #gets the suit that the flush is supposed to follow
         self.flush = True
@@ -110,21 +113,48 @@ class Hand:
             if(i[1] != suit):
                 self.flush = False
 
+
     def high_card(self):
         converted_hand = self.convert_hand(self.hand, 'high')
         converted_hand.sort()
         return converted_hand[-1] #returns the highest card value
 
+
     def straight_flush(self):
         if(self.flush and self.straight):
             self.straight_flush = True
 
+
     def full_house(self):
         if(self.trips and self.one_pair):
             self.fullhouse = True
+
 
     def royal_flush(self):
         if(self.straight_flush):
             converted_hand = self.convert_hand(self.hand, 'high')
             if(converted_hand[0] == 10 and converted_hand[-1] == 14):
                 self.royal_flush = True
+
+
+    def evaluate(self):
+        if(self.royal_flush):
+            self.strength = 10
+        elif(self.straight_flush):
+            self.strength = 9
+        elif(self.quads):
+            self.strength = 8
+        elif(self.fullhouse):
+            self.strength = 7
+        elif(self.flush):
+            self.strength = 6
+        elif(self.straight):
+            self.strength = 5
+        elif(self.trips):
+            self.strength = 4
+        elif(self.two_pair):
+            self.strength = 3
+        elif(self.pairs):
+            self.strength = 2
+        else:
+            self.strength = 1

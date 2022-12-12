@@ -50,7 +50,12 @@ def hand_combinations(player_hand, board, number):
 def pre_flop(player_hand, board):
     all_hand_combinations= hand_combinations(player_hand, board, 2) #gets all the possible hand combinations
 
-    #creates a list of hand objects with each object holding its own information such as what is in the hand and that particular hand's strength
-    possible_hands_list= []
+    #creates a list of hand objects from the hand class with each object holding its own information such as what is in the hand and that particular hand's strength
+    hands_object_list= []
     for i in all_hand_combinations:
-        possible_hands_list.append(Hand(i))
+        hands_object_list.append(Hand(i))
+
+    hands_object_list.sort(key=lambda hand: hand.strength) #sorts the hand object based on hand strength
+    #question: how do I choose the hand combination that's the strongest? Like suppose one hand is like 23456 and the other is like 34567.
+    #todo: figure that shit out^
+    #answer: Okay what If we have each strength evaluator function return a list of the winning cards? i.e. quads returns the list of quad numbers, 2 pair returns the 2 pairs, etc.
