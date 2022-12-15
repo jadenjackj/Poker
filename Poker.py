@@ -31,16 +31,6 @@ river = cards[11]
 board = []
 
 
-#todo: make a function that actually makes the best 5 card hand
-#question: how do we actually determine what are the best 5 cards without running the hand through the program?
-#answer: Why not just run every combination of the hands through the program?
-#note: with 5 cards in the river and 2 cards in hand, we have 21 possible combinations
-
-#question: how are we gonna keep track of the boolean variables for each hand?
-#answer: alright so here's what I'm thinking. We have a hand class and each hand is an instance of that class with the boolean values connected to it
-#todo: make the hands class with the features of a hand like the type of hand and the cards in the hand
-
-
 #so this gets all the possible hand combinations you can get based on what's on the board.
 def hand_combinations(player_hand, board, number):
     cards_available = player_hand+board
@@ -56,6 +46,10 @@ def pre_flop(player_hand, board):
         hands_object_list.append(Hand(i))
 
     hands_object_list.sort(key=lambda hand: hand.strength) #sorts the hand object based on hand strength
+    
+
+def tie_breaker():
     #question: how do I choose the hand combination that's the strongest? Like suppose one hand is like 23456 and the other is like 34567.
     #todo: figure that shit out^
     #answer: Okay what If we have each strength evaluator function return a list of the winning cards? i.e. quads returns the list of quad numbers, 2 pair returns the 2 pairs, etc.
+    uwu=0

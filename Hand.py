@@ -20,6 +20,8 @@ class Hand:
 
         self.hand = hand
 
+        self.tie_breaker = []
+
 #-----------------------------------------------------------------------------------------------------
 
     #HELPER FUNCTIONS:
@@ -39,7 +41,9 @@ class Hand:
     def convert_hand(hand, low_or_high):
         converted_hand = []
         for i in hand:
-            if(i == 'J'):
+            if(i == 'T'):
+                converted_hand.append(10)
+            elif(i == 'J'):
                 converted_hand.append(11)
             elif(i == 'Q'):
                 converted_hand.append(12)
@@ -58,30 +62,36 @@ class Hand:
     #note: all the functions below determines if a hand has a particular strength
     def quads(self):
         duplicate_list = self.duplicates(self.hand)
-        ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+        ranks = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
         for i in ranks:
             if(duplicate_list.count(i) == 6):
                 self.quads=True
-                return i
+                self.tie_breaker = [i, i, i, i]
 
 
     def trips(self):
         duplicate_list = self.duplicates(self,self.hand)
-        ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+        ranks = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
         for i in ranks:
             if(duplicate_list.count(i) == 3):
                 self.trips=True
+                self.tie_breaker = [i, i, i]
     
     #evaluates both one_pair and two_pair
     def pairs(self):
         duplicate_list = self.duplicates(self.hand)
-        ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+        ranks = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
         for i in ranks:
             if(duplicate_list.count(i) == 2 and self.one_pair == True):
                 self.two_pair=True
                 self.one_pair=False #doing this because if we have a two pair then that means we don't simply have just a one pair anymore
+                self.tie_breaker.append(i)
+                self.tie_breaker.append(i)
             if(duplicate_list.count(i) == 2):
+                self.tie_breker = []
                 self.one_pair=True
+                self.tie_breaker.append(i)
+                self.tie_breaker.append(i)
 
 
     def straight(self):
@@ -104,6 +114,7 @@ class Hand:
 
         if(low_straight or high_straight):
             self.straight = True
+            self.tie_breaker = self.hand #todo: is this right? figure it out because we need to order it
 
 
     def flush(self):
@@ -112,13 +123,17 @@ class Hand:
         for i in self.hand: #if one of the cards doesn't have the suit then it ain't a flush
             if(i[1] != suit):
                 self.flush = False
+            #todo: get highest card
 
 
     def high_card(self):
         converted_hand = self.convert_hand(self.hand, 'high')
         converted_hand.sort()
-        return converted_hand[-1] #returns the highest card value
+        #todo: change it back to the string later bc if we add it now it'll be something like 14 instead of Ace
+        self.tie_breaker = [converted_hand[-1]] #returns the highest card value
 
+
+    #todo: do all the stuff below later
 
     def straight_flush(self):
         if(self.flush and self.straight):
@@ -157,4 +172,4 @@ class Hand:
         elif(self.pairs):
             self.strength = 2
         else:
-            self.strength = 1
+            self.strength = 1 #high card
